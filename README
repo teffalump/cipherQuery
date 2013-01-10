@@ -1,0 +1,3 @@
+This will be a little tool get the ciphersuite choices for a variety of websites.
+
+Reads in a file containing a list of websites, then outputs the ciphersuites chosen.
