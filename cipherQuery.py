@@ -5,7 +5,11 @@
 #
 #
 #
-import sys,ssl
+import sys,ssl,socket
+
+#ciphers
+context = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
+context.set_ciphers("ALL:NULL")
 
 #port for https
 port = 443
@@ -15,13 +19,15 @@ f = sys.argv[1]
 
 #read website list into list
 with open(f,'r') as a:
-    w = a.read().split('\n')
+    websites = a.read().split('\n')
 
-for site in w:
-    with ssl.SSLSocket() as c:
+#read ciphers into list
+for site in websites:
+    with socket.socket() as sock:
         try:
-            c.settimeout(2)
-            c.connect((site,port))
-            cipher=c.cipher()
+            con = context.wrap_socket(sock)
+            con.settimeout(2)
+            con.connect((site,port))
+            cipher=con.cipher()
             print(site,cipher)
         except: pass
