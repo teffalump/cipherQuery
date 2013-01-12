@@ -29,6 +29,6 @@ else:
 context = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
 context.set_ciphers(CIPHER_STRING)
 
-#read ciphers into list
+#print ciphers
 for site in WEBSITES:
     print(website_cipher(site))
