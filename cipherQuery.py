@@ -1,5 +1,5 @@
 #!/usr/bin/python
-import sys,ssl,socket,pprint
+import sys,ssl,socket
 
 def website_cipher(url):
     with socket.socket() as sock:
@@ -29,10 +29,10 @@ else:
 context = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
 context.set_ciphers(CIPHER_STRING)
 
-#get string format and print
+#print
 results = [ website_cipher(site) for site in WEBSITES ]
 
-#for cli use
+#cli output
 #width=max(map(len, [result['site'] for result in results if result['site'] != False]))
 #sformat="{:{width}}\t{:}"
 #print(sformat.format("SITE", "SUITE", width=width))
