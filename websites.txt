@@ -13,3 +13,7 @@ bing.com
 netflix.com
 tumblr.com
 paypal.com
+bankofamerica.com
+citibank.com
+ingdirect.com
+wellsfargo.com
