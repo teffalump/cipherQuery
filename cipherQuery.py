@@ -9,7 +9,7 @@ def website_cipher(url):
             con.connect((url,PORT))
             cipher=con.cipher()
             return {'site':url,'suite':cipher[0]}
-        except: return {'site': url, 'suite': False, 'size': False}
+        except: return {'site': url, 'suite': False}
 
 #port for https
 PORT = 443
