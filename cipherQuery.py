@@ -1,5 +1,5 @@
 #!/usr/bin/python
-import sys,ssl,socket
+import sys,ssl,socket,pprint
 
 def website_cipher(url):
     with socket.socket() as sock:
@@ -8,8 +8,8 @@ def website_cipher(url):
         try:
             con.connect((url,PORT))
             cipher=con.cipher()
-            return (url,cipher)
-        except: return (url, False)
+            return {'site':url,'suite':cipher[0]}
+        except: return {'site': url, 'suite': False, 'size': False}
 
 #port for https
 PORT = 443
@@ -29,6 +29,24 @@ else:
 context = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
 context.set_ciphers(CIPHER_STRING)
 
-#print ciphers
-for site in WEBSITES:
-    print(website_cipher(site))
+#get string format and print
+results = [ website_cipher(site) for site in WEBSITES ]
+
+#for cli use
+#width=max(map(len, [result['site'] for result in results if result['site'] != False]))
+#sformat="{:{width}}\t{:}"
+#print(sformat.format("SITE", "SUITE", width=width))
+#for result in results:
+    #if result['suite'] == False: 
+        #print("{0}".format(result['site']))
+    #else:
+        #print(sformat.format(result['site'], result['suite'], width=width))
+
+#html output
+print("<table><tr><td><b>Site</b></td><td><b>Suite</b></td></tr>")
+for result in results:
+    if result['suite'] == False: 
+        print("<tr><td>{0}</td><td>{1}</td></tr>".format(result['site'], ""))
+    else:
+        print("<tr><td>{0}</td><td>{1}</td></tr>".format(result['site'], result['suite']))
+print("</table>")
